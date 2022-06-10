@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using MyEcommerce.ProductAPI.DTOs;
 using MyEcommerce.ProductAPI.Model;
 using MyEcommerce.ProductAPI.Model.Context;
 
@@ -16,53 +15,30 @@ namespace MyEcommerce.ProductAPI.Repository.Implementations
             _context = context;
             _mapper = mapper;
         }
-        public async Task<ProductDTO> Create(Product product)
+        public async Task RegisterProduct(Product product)
         {
             await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();
-
-            return _mapper.Map<ProductDTO>(product);
         }
 
-        public async Task<bool> Delete(long id)
+        public async Task<IEnumerable<Product>> ListAllProducts()
         {
-            try
-            {
-                Product? product = await _context.Products.Where(p => p.Id == id).FirstOrDefaultAsync();
-                if(product == null)
-                {
-                    return false;
-                }
-                _context.Products.Remove(product);
-                await _context.SaveChangesAsync();
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+            IEnumerable<Product> products = await _context.Products.Where(p => !p.IsDeleted).ToListAsync();
+
+            return products;
         }
 
-        public async Task<IEnumerable<ProductDTO>> FindAll()
+        public async Task<Product?> GetProductById(Guid id)
         {
-            IEnumerable<Product> products = await _context.Products.Take(10).ToListAsync();
+            Product? product = await _context.Products.Where(p => p.Id == id && !p.IsDeleted).FirstOrDefaultAsync();
 
-            return _mapper.Map<IEnumerable<ProductDTO>>(products);
+            return product;
         }
 
-        public async Task<ProductDTO> FindById(long id)
-        {
-            Product? product = await _context.Products.Where(p => p.Id == id).FirstOrDefaultAsync();
-
-            return _mapper.Map<ProductDTO>(product);
-        }
-
-        public async Task<ProductDTO> Update(Product product)
+        public async Task EditProduct(Product product)
         {
             _context.Products.Update(product);
             await _context.SaveChangesAsync();
-
-            return _mapper.Map<ProductDTO>(product);
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿namespace MyEcommerce.ProductAPI.DTOs
+﻿namespace MyEcommerce.ProductAPI.DTOs.Requests
 {
-    public class ProductDTO
+    public class EditProductRequest
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

@@ -1,6 +1,6 @@
-﻿namespace MyEcommerce.ProductAPI.DTOs
+﻿namespace MyEcommerce.ProductAPI.DTOs.Responses
 {
-    public class ProductDTO
+    public class GetProductByIdResponse
     {
         public Guid Id { get; set; }
         public string Name { get; set; }

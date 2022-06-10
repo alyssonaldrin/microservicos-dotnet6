@@ -5,10 +5,9 @@ namespace MyEcommerce.ProductAPI.Repository
 {
     public interface IProductRepository
     {
-        Task<IEnumerable<ProductDTO>> FindAll();
-        Task<ProductDTO> FindById(long id);
-        Task<ProductDTO> Create(Product product);
-        Task<ProductDTO> Update(Product product);
-        Task<bool> Delete(long id);
+        Task<IEnumerable<Product>> ListAllProducts();
+        Task<Product?> GetProductById(Guid id);
+        Task RegisterProduct(Product product);
+        Task EditProduct(Product product);
     }
 }
