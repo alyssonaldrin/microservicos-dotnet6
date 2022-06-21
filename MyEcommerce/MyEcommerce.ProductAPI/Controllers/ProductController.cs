@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MyEcommerce.ProductAPI.DTOs.Requests;
-using MyEcommerce.ProductAPI.DTOs.Responses;
-using MyEcommerce.ProductAPI.Exceptions;
-using MyEcommerce.ProductAPI.Services;
+using MyEcommerce.ProductAPI.Application.DTOs.Requests;
+using MyEcommerce.ProductAPI.Application.DTOs.Responses;
+using MyEcommerce.ProductAPI.Application.Exceptions;
+using MyEcommerce.ProductAPI.Application.ServicesAbstractions;
 using System.Net;
 
 namespace MyEcommerce.ProductAPI.Controllers
@@ -64,9 +64,13 @@ namespace MyEcommerce.ProductAPI.Controllers
 
                 return Ok("Product successfully edited!");
             }
-            catch (ProductNotFoundException)
+            catch (Exception ex)
             {
-                return BadRequest("There is no product for this id.");
+                if (ex is ProductNotFoundException)
+                {
+                    return BadRequest("There is no product for this id.");
+                }
+                return BadRequest(ex.Message);
             }
         }
 
@@ -81,9 +85,13 @@ namespace MyEcommerce.ProductAPI.Controllers
 
                 return Ok("Product successfully deleted!");
             }
-            catch (ProductNotFoundException)
+            catch (Exception ex)
             {
-                return BadRequest("There is no product for this id.");
+                if (ex is ProductNotFoundException)
+                {
+                    return BadRequest("There is no product for this id.");
+                }
+                return BadRequest(ex.Message);
             }
         }
     }

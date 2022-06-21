@@ -1,11 +1,11 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using MyEcommerce.ProductAPI.Config;
-using MyEcommerce.ProductAPI.Model.Context;
-using MyEcommerce.ProductAPI.Repository;
-using MyEcommerce.ProductAPI.Repository.Implementations;
-using MyEcommerce.ProductAPI.Services;
-using MyEcommerce.ProductAPI.Services.Implementations;
+using MyEcommerce.ProductAPI.Application.Config;
+using MyEcommerce.ProductAPI.Application.RepositoryAbstractions;
+using MyEcommerce.ProductAPI.Application.Services;
+using MyEcommerce.ProductAPI.Application.ServicesAbstractions;
+using MyEcommerce.ProductAPI.Infra.Context;
+using MyEcommerce.ProductAPI.Infra.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
